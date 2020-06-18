@@ -1,12 +1,15 @@
 package com.it.tacocloud.pojo;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.CreditCardNumber;
 
+
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Order
@@ -15,8 +18,12 @@ import java.util.Date;
  * @date 2020/6/16 15:10
  */
 @Data
+@Entity
+@Table(name = "Taco_Order")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull(message = "姓名是必填的")
@@ -57,4 +64,17 @@ public class Order {
      * 创建日期
      */
     private Date placedAt;
+
+    @ManyToMany(targetEntity = Taco.class)
+    private List<Taco> tacos = new ArrayList<>();
+
+    public void addDesign(Taco design) {
+        this.tacos.add(design);
+    }
+
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
+    }
+
 }
