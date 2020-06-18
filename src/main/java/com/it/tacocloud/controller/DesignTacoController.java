@@ -4,15 +4,14 @@ import com.it.tacocloud.data.IngredientRepository;
 import com.it.tacocloud.data.TacoRepository;
 import com.it.tacocloud.pojo.Ingredient;
 import com.it.tacocloud.pojo.Ingredient.Type;
+import com.it.tacocloud.pojo.Order;
 import com.it.tacocloud.pojo.Taco;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -22,6 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DesignTacoController {
 
     private final IngredientRepository ingredientRepo;
@@ -83,12 +83,28 @@ public class DesignTacoController {
         return "design";
     }
 
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+    @ModelAttribute(name = "taco")
+    public Taco taco() {
+        return new Taco();
+    }
+
+
     @PostMapping
-    public String processDesign(@Valid Taco design, Errors errors) {
+    public String processDesign(@Valid Taco design,
+                                Errors errors,
+                                @ModelAttribute Order order) {
         if (errors.hasErrors()) {
             return "design";
         }
         log.info("Processing design :" + design);
+
+        Taco saved = designRepo.save(design);
+        order.addDesign(saved);
 
 
         return "redirect:/orders/current";
