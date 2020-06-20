@@ -48,7 +48,7 @@ public class Order {
 
     /**
      * 信用卡CVV码
-     * 验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。
+     * Digits验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。
      */
     @Digits(integer = 3, fraction = 0, message = "无效的CVV")
     private String ccCVV;

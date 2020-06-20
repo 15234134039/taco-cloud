@@ -36,7 +36,7 @@ public class JdbcIngredientRepository implements IngredientRepository{
 
 
 //    /**
-//     * 使用显式RowMapper
+//     * 使用显式RowMapper,使用语法糖的方式实现的结果是一样的
 //     * @param id
 //     * @return
 //     */
@@ -66,6 +66,7 @@ public class JdbcIngredientRepository implements IngredientRepository{
 
     /**
      * Todo 参数rowNum的作用是什么，可以去掉吗
+     * 此方法的参数必须和RowMapper接口中的mapRow一致
      */
     private Ingredient mapRowToIngredient(ResultSet rs, int rowNum) throws SQLException {
         return new Ingredient(

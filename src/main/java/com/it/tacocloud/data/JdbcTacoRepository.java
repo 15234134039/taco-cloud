@@ -51,6 +51,11 @@ public class JdbcTacoRepository implements TacoRepository{
                         new Timestamp(taco.getCreatedAt().getTime())));
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        /**
+         * Spring利用GeneratedKeyHolder，提供了一个可以返回新增记录对应主键值的方法：
+         * int update(PreparedStatementCreator psc, KeyHolder generatedKeyHolder)
+         */
         jdbc.update(psc, keyHolder);
 
         return keyHolder.getKey().longValue();
