@@ -27,6 +27,10 @@ public class JdbcOrderRepository implements OrderRepository{
 
     @Autowired
     public JdbcOrderRepository(JdbcTemplate jdbc) {
+
+        /**
+         * usingGeneratedKeyColumns 声明了id属性将会由数据库提供或生成
+         */
         this.orderInserter = new SimpleJdbcInsert(jdbc)
                 .withTableName("Taco_Order")
                 .usingGeneratedKeyColumns("id");
