@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-
+    @Qualifier("")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -40,6 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/design", "/orders").hasRole("ROLE_USER")
-                .antMatchers("/", "/**").permitAll();
+                .antMatchers("/", "/**").permitAll()
+                .and()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/design", true)
+                .and()
+                .logout().logoutSuccessUrl("/");
     }
 }
