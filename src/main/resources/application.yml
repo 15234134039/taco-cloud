@@ -1,0 +1,25 @@
+server:
+  port: 9090
+  # 启用HTTPS
+#  ssl:
+#    key-store:
+#    key-store-password:
+#    key-password:
+
+
+spring:
+  # 可配置读取哪些sql脚本（schema.sql,data.sql）
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: tacodb
+    password: tacopassword
+    driver-class-name: com.mysql.jdbc.Driver
+
+logging:
+  path: /var/logs
+  file: TacoCloud.log
+  level:
+    root : WARN
+    org.springframework.security: DENUG
+
+
