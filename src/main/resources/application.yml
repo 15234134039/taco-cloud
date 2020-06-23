@@ -8,12 +8,14 @@ server:
 
 
 spring:
-  # 可配置读取哪些sql脚本（schema.sql,data.sql）
+  # 可配置读取哪些sql脚本（schema.sql,data.sql默认不需要配置，可以配置其他名称的sql）
   datasource:
-    url: jdbc:mysql://localhost/tacocloud
-    username: tacodb
-    password: tacopassword
-    driver-class-name: com.mysql.jdbc.Driver
+    schema:
+    - schema.sql
+    data:
+    - data.sql
+  profiles:
+    active: prod
 
 logging:
   path: /var/logs
@@ -22,4 +24,6 @@ logging:
     root : WARN
     org.springframework.security: DENUG
 
-
+taco:
+  orders:
+    pageSize: 10
