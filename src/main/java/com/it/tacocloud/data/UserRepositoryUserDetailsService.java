@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  * @date 2020/6/19 16:28
  */
-@Service
+@Service("userRepositoryUserDetailsService")
 public class UserRepositoryUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepo;
